@@ -1,0 +1,37 @@
+repos:
+  # Standard hygiene checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+
+  # Local Ruff (uses the version from pyproject.toml)
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: ruff check (local)
+        entry: uv run ruff check --fix
+        language: system
+        pass_filenames: false
+        always_run: true
+        types: [python]
+
+      - id: ruff-format
+        name: ruff format (local)
+        entry: uv run ruff format
+        language: system
+        pass_filenames: false
+        always_run: true
+        types: [python]
+
+      - id: mypy
+        name: mypy (local)
+        entry: uv run mypy src/
+        language: system
+        pass_filenames: false
+        always_run: true
+        types: [python]
