@@ -5,8 +5,15 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "fastapi>=0.136.1",
+    "matplotlib>=3.10.9",
     "pandas>=3.0.2",
+    "pydantic-settings>=2.14.0",
+    "requests>=2.33.1",
     "scikit-learn>=1.8.0",
+    "typer>=0.25.0",
+    "uvicorn>=0.46.0",
+    "cli",
 ]
 
 [project.scripts]
@@ -23,6 +30,7 @@ dev = [
     "pandas-stubs>=3.0.0.260204",
     "pre-commit>=4.0.0",
     "pytest>=9.0.3",
+    "requests>=2.33.1",
     "ruff>=0.15.12",
     "scipy-stubs>=1.17.1.4",
 ]
@@ -34,10 +42,10 @@ exclude = [
 
 [tool.ruff.lint]
 extend-select = [
-  "UP",  # pyupgrade
-  "D",   # pydocstyle
-  "N",   # PEP8 naming
-  "I",   # isort
+  "UP",
+  "D",
+  "N",
+  "I",
 ]
 
 [tool.ruff.lint.pydocstyle]
@@ -45,9 +53,15 @@ convention = "numpy"
 
 [tool.mypy]
 strict = true
-# Or for less aggressive:
-# disallow_untyped_defs = true
 
 [[tool.mypy.overrides]]
 module = ["sklearn.*", "joblib"]
 ignore_missing_imports = true
+
+[tool.uv.workspace]
+members = [
+    "packages/cli",
+]
+
+[tool.uv.sources]
+cli = { workspace = true }
